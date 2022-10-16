@@ -1,5 +1,6 @@
 streamlit
 gdal
+numpy
 folium==0.12.1
 pandas==1.2.4
 matplotlib
