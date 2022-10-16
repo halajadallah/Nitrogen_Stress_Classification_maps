@@ -11,7 +11,8 @@ coloring based on classification classes using code from answer of D_Serg in htt
 import numpy as np
 import folium
 from folium import plugins
-from osgeo import gdal
+#from osgeo import gdal
+import gdal
 import os
 import streamlit as st
 import matplotlib.pyplot as plt
