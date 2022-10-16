@@ -1,60 +1,26 @@
 
-
-
-'''
-
-use of rasterio code from
-https://discuss.streamlit.io/t/showing-geotiff-raster-data/11170/4
-'''
-import streamlit as st
-from streamlit_folium import folium_static
 import folium
-import rasterio
 import numpy as np
-
+import pickle
+import os
 
 root_path = os.getcwd()
-tif_path = os.path.join(root_path, 'tif_only')
-boro_2018_path = os.path.join(tif_path,'2018_boro_clre.tif') 
-boro_2019_path = os.path.join(tif_path,'2019_boro_clre.tif')
-boro_2020_path = os.path.join(tif_path,'2020_boro_clre.tif')
-boro_2021_path = os.path.join(tif_path,'2021_boro_clre.tif')
-aman_2018_path = os.path.join(tif_path,'2019_aman_clre.tif')
-aman_2019_path = os.path.join(tif_path,'2019_aman_clre.tif')
-aman_2020_path = os.path.join(tif_path,'2020_aman_clre.tif')
-aman_2021_path = os.path.join(tif_path,'2021_aman_clre.tif')
+boro_path = os.path.join(root_path, 'geodata', 'boro_clre_arrays.pkl')
+aman_path = os.path.join(root_path, 'geodata', 'aman_clre_arrays.pkl')
+bounds_path = os.path.join(root_path, 'geodata', 'center_bounds_list.pkl')
 
+pickle_boro_off = open (boro_path, "rb")
+boro_arrays_list = pickle.load(pickle_boro_off)
 
-# A dummy Sentinel 2 COG I had laying around
-#tif = "streamlit_app/WGS84_S2_image.tif"
-# This is probably hugely inefficient, but it works. Opens the COG as a numpy array
+pickle_aman_off = open (aman_path, "rb")
+aman_arrays_list = pickle.load(pickle_aman_off)
 
+boro_2018, boro_2019, boro_2020, boro_2021, boro_2022 = boro_arrays_list
+aman_2018, aman_2019, aman_2020, aman_2021 = aman_arrays_list
 
-def tif_to_array(tif_file):
-    src = rasterio.open(tif)
-    array = src.read()
-    bounds = src.bounds
-    return array, bounds
-    
-boro_2018, bounds = tif_to_array(boro_2018_path)
-boro_2019, bounds = tif_to_array(boro_2019_path)
-boro_2020, bounds = tif_to_array(boro_2020_path)
-boro_2021, bounds = tif_to_array(boro_2021_path)
-#boro_2022, bounds = tif_to_array(boro_2018_path)
-
-aman_2018, bounds = tif_to_array(aman_2018_path)
-aman_2019, bounds = tif_to_array(aman_2019_path)
-aman_2020, bounds = tif_to_array(aman_2020_path)
-aman_2021, bounds = tif_to_array(aman_2021_path)
-
-x1,y1,x2,y2 = src.bounds
-bbox = [(bounds.bottom, bounds.left), (bounds.top, bounds.right)]
-
-st.title("Plotting maps!")
-st.write('x1, y1', (x1, y1))
-st.write('x2, y1',(x2, y2))
-st.write('bbox', bbox)
-
+pickle_bounds_off = open(bounds_path, "rb")
+bounds_list = pickle.load(pickle_bounds_off)
+centerx, centery, xmin, ymin, xmax, ymax = bounds_list
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
@@ -63,7 +29,6 @@ raster_to_coloridx = {
  5: (0.1, 0.6, 0.1, 0.7), #green 
  6: (0.596078431372549, 0.3058823529411765, 0.6392156862745098, 0.7), #purple
  -128: (1, 1, 1, 0)}
-
 
 m = folium.Map(location=[centery, centerx], zoom_start=11 ,tiles='openstreetmap')#'Stamen Terrain')
 '''
@@ -88,7 +53,7 @@ folium.raster_layers.ImageOverlay(
     cross_origin=False,
     zindex=1,
     ).add_to(m)
-
+'''
 folium.raster_layers.ImageOverlay(
     name="boro 2020",
     image=boro_2020,
@@ -99,12 +64,22 @@ folium.raster_layers.ImageOverlay(
     cross_origin=False,
     zindex=1,
     ).add_to(m)
-'''    
+    
 folium.raster_layers.ImageOverlay(
     name="boro 2021",
     image=boro_2021,
-    #image=np.moveaxis(array, 0, -1),
-    bounds= bbox  #[[ymin, xmin], [ymax, xmax]],
+    bounds=[[ymin, xmin], [ymax, xmax]],
+    opacity=0.7,
+    colormap=lambda x: raster_to_coloridx[x],
+    interactive=True,
+    cross_origin=False,
+    zindex=1,
+    ).add_to(m)
+
+folium.raster_layers.ImageOverlay(
+    name="boro 2022",
+    image=boro_2022,
+    bounds=[[ymin, xmin], [ymax, xmax]],
     opacity=0.7,
     colormap=lambda x: raster_to_coloridx[x],
     interactive=True,
@@ -113,8 +88,5 @@ folium.raster_layers.ImageOverlay(
     ).add_to(m)
 
 folium.LayerControl().add_to(m)
-#m
 
-
-# call to render Folium map in Streamlit
-folium_static(m)
+m
