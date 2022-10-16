@@ -1,5 +1,5 @@
 streamlit
-osgeo=='3.5.1'
+osgeo
 folium==0.12.1
 pandas==1.2.4
 matplotlib
