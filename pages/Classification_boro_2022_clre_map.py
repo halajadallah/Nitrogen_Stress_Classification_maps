@@ -13,7 +13,7 @@ bounds_path = os.path.join(root_path, 'geodata', 'center_bounds_list.pkl')
 pickle_bounds_off = open(bounds_path, "rb")
 bounds_list = pickle.load(pickle_bounds_off)
 centerx, centery, xmin, ymin, xmax, ymax = bounds_list
-
+st.write('reading bounds')
 def pickle_off(path):
     pickle_off = open(path, "rb")
     array = pickle.load(pickle_off)
@@ -21,7 +21,7 @@ def pickle_off(path):
     
 boro_2022_ap = os.path.join(root_path, 'geodata', 'boro_2022_array.pkl')
 boro_2022 = pickle_off(boro_2022_ap)
-
+st.write('unpickled boro 2022 data') 
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
@@ -30,7 +30,7 @@ raster_to_coloridx = {
  5: (0.1, 0.6, 0.1, 0.7), #green 
  6: (0.596078431372549, 0.3058823529411765, 0.6392156862745098, 0.7), #purple
  -128: (1, 1, 1, 0)}
-
+st.write('preparing map')
 m = folium.Map(location=[centery, centerx], zoom_start=11 ,tiles='openstreetmap')#'Stamen Terrain')
 st.write('Classes : Poor (red), Insufficinet (yellow), Good (green), Excellent (purple)')
 
