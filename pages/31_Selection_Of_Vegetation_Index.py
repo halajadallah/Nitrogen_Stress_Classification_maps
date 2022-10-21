@@ -2,9 +2,9 @@ import streamlit as st
 import os
 
 st.title("Selection Of Vegetation Index")
-path = os.getcwd()
-st.write('path', path)
-st.write(os.listdir())
+#path = os.getcwd()
+#st.write('path', path)
+#st.write(os.listdir())
 
 
 st.markdown(
@@ -23,12 +23,12 @@ This allows more variability of the classification of plant chlorophyll content.
 # with col1:
 #    st.image("./histograms/VI_hist_boro_2018.PNG")
    
-st.image("./histograms/VI_hist_boro_2018.PNG")
+st.image("histograms/VI_hist_boro_2018.PNG")
 
-st.image("./histograms/VI_hist_boro_2019.PNG")
+st.image("histograms/VI_hist_boro_2019.PNG")
 
-st.image("./histograms/VI_hist_boro_2020.PNG")
+st.image("histograms/VI_hist_boro_2020.PNG")
 
-st.image("./histograms/VI_hist_boro_2021.PNG")
+st.image("histograms/VI_hist_boro_2021.PNG")
 
-st.image("./histograms/VI_hist_boro_2022.PNG")
+st.image("histograms/VI_hist_boro_2022.PNG")
