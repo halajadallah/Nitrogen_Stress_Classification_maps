@@ -1,6 +1,11 @@
 import streamlit as st
+import os
 
 st.title("Selection Of Vegetation Index")
+path = os.getcwd()
+st.write('path', path)
+st.write(os.listdir())
+
 
 st.markdown(
 '''
