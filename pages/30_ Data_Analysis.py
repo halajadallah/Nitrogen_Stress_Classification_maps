@@ -15,14 +15,13 @@ st.markdown(
 
 * Important bands are near infrared (nir) 835 nm, red edge (re) 704 nm, red and green
 
-__Normalized Difference Vegetation Index__ (NDVI) = (nir – red)/(ni + red)
-NDVI reveals areas of vegetation stress.
+1. __Normalized Difference Vegetation Index__ (NDVI) = (nir – red)/(ni + red)
 
-__Modified Chlorophyll Absorption Reflectance Index__ (MCARI) = ((re  - red) -0.2*(re – green))*(re/red)
+2. __Modified Chlorophyll Absorption Reflectance Index__ (MCARI) = ((re  - red) -0.2*(re – green))*(re/red)
 
-__Chlorophyll red edge index__ (Clre) = (nir/re) – 1
+3. __Chlorophyll red edge index__ (Clre) = (nir/re) – 1
 
-Both MCARI and Clre show chlorophyl strength of crop of interest. It is directly related to fertilizer need. 
+Both MCARI and Clre show chlorophyll strength of crop of interest. Chlorophyll content reflects fertilizer need. 
 Nitrogen is an essential component for plant growth. 
 
 A map showing stress areas can guide farmers to pay attention for further follow up.   
