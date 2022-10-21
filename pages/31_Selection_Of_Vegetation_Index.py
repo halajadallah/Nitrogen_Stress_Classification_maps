@@ -23,12 +23,12 @@ This allows more variability of the classification of plant chlorophyll content.
 # with col1:
 #    st.image("./histograms/VI_hist_boro_2018.PNG")
    
-st.image("histograms/VI_hist_boro_2018.PNG")
+st.image("VI_hist_boro_2018.PNG")
 
-st.image("histograms/VI_hist_boro_2019.PNG")
+st.image("VI_hist_boro_2019.PNG")
 
-st.image("histograms/VI_hist_boro_2020.PNG")
+st.image("VI_hist_boro_2020.PNG")
 
-st.image("histograms/VI_hist_boro_2021.PNG")
+st.image("VI_hist_boro_2021.PNG")
 
-st.image("histograms/VI_hist_boro_2022.PNG")
+st.image("VI_hist_boro_2022.PNG")
