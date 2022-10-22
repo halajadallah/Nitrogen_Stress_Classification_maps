@@ -16,7 +16,7 @@ Standardized index = (index – mean)/std
 
 #### we classify nitrogen content based on __number of standard deviations from the mean__.
 
-#### Poor : (-2, -1] ;  Mild Stress: (-1, 0], Normal: (0, 1] and Good: (1, 2]  
+#### Poor : (-2 to -1) ;  Mild Stress: (-1 to 0), Normal: (0 to 1) and Good: (1 to 2)  
 
 '''
 )
