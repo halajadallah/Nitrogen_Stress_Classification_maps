@@ -7,6 +7,7 @@ import folium
 
 st.title("Classification Maps")
 
+st.write("Streamlit cannot load the map for all of Natore district, therefore we selected a small region to give an appreciation of the classification on the map")
 
 def pickle_off(path):
     pickle_off = open(path, "rb")
