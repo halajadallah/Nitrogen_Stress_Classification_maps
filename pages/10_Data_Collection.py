@@ -14,4 +14,4 @@ st.markdown("3. The Sentinel 2 SR harmonized is already preprocessed for surface
 
 st.markdown("4. If excessive clouds are present (> 20%), there will be a lot of missing data. This is the case of Aus season (June to September).")
 
-st.image('data_collection_table.PNG')
+st.image('figs/data_collection_table.PNG')
