@@ -8,6 +8,7 @@ import folium
 st.title("Classification Maps")
 
 st.write("Streamlit cannot load the map for all of Natore district, therefore we selected a small region to give an appreciation of the classification on the map")
+st.write("Please note the spatial resolution of each pixel is 20 meters. This is the red edge resolution ")
 
 def pickle_off(path):
     pickle_off = open(path, "rb")
@@ -27,7 +28,7 @@ raster_to_coloridx = {
  -128: (1, 1, 1, 0)}
 
 m = folium.Map(location=[centery, centerx], zoom_start=13 ,tiles='openstreetmap')#'Stamen Terrain')
-st.write('Classes : Poor (-2 to -1) (red), Mild Stree (-1 to 0) (yellow), Normal (0 to 1) (green), Good (1 to 2) (blue)')
+st.write('Classes : Poor (-2 to -1) (red), Mild Stress (-1 to 0) (yellow), Normal (0 to 1) (green), Good (1 to 2) (blue)')
 
 folium.raster_layers.ImageOverlay(
     name="boro 2018",
