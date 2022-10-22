@@ -26,7 +26,7 @@ raster_to_coloridx = {
  -128: (1, 1, 1, 0)}
 
 m = folium.Map(location=[centery, centerx], zoom_start=13 ,tiles='openstreetmap')#'Stamen Terrain')
-st.write('Classes : Poor (-2 to -1) (red), Mild Stree (-1 to 0) (yellow), Normal (0 to 1) (green), Good (1 to 2) (purple)')
+st.write('Classes : Poor (-2 to -1) (red), Mild Stree (-1 to 0) (yellow), Normal (0 to 1) (green), Good (1 to 2) (blue)')
 
 folium.raster_layers.ImageOverlay(
     name="boro 2018",
