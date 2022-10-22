@@ -25,10 +25,10 @@ centerx, centery, xmin, ymin, xmax, ymax = pickle_off("geodata_roi/center_bounds
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
- 3: (0.8941176470588236, 0.10196078431372549, 0.10980392156862745,0.7), #red
- 4: (1.0, 1.0, 0.2, 0.7), #yellow
- 5: (0.1, 0.6, 0.1, 0.7), #green 
- 6: (0.596078431372549, 0.3058823529411765, 0.6392156862745098, 0.7), #purple
+ 2: (0.8941176470588236, 0.10196078431372549, 0.10980392156862745,0.7), #red
+ 3: (1.0, 1.0, 0.2, 0.7), #yellow
+ 4: (0.1, 0.6, 0.1, 0.7), #green 
+ 5: (0.596078431372549, 0.3058823529411765, 0.6392156862745098, 0.7), #purple
  -128: (1, 1, 1, 0)}
 
 m = folium.Map(location=[centery, centerx], zoom_start=11 ,tiles='openstreetmap')#'Stamen Terrain')
