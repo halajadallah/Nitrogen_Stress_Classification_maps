@@ -31,14 +31,14 @@ try:
     st.write("Please upload your field boundary as json or geojson file")
     st.markdown(
     '''
-    * Use the link to see the bounding ROI in geojson  https://geojson.io/#new&map=11.88/24.36593/89.00554
+    * Use the link to see the bounding ROI in geojson https://geojson.io/#map=11.88/24.36593/89.00554
     * copy the polygon in JSON panel to a json file and upload it
     '''
     )
     uploaded_file = st.file_uploader("Choose a file")
     roi_upload = geopandas.read_file(uploaded_file)
 except:
-    roi_upload = geopandas.read_file("geodata_roi/roi_field_2.json")
+    roi_upload = geopandas.read_file("geodata_roi/roi_upload_2.json")
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
