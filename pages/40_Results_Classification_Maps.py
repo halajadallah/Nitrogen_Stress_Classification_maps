@@ -24,7 +24,7 @@ aman_2018, aman_2019, aman_2020, aman_2021 = pickle_off("geodata_roi/aman_clre_a
 centerx, centery, xmin, ymin, xmax, ymax = pickle_off("geodata_roi/center_bounds_list.pkl")
 
 
-Natore = geopandas.read_file("geodata_roi/Natore.geojson")
+Natore = geopandas.read_file("geodata_roi/Natore_geo.geojson")
 roi = geopandas.read_file("geodata_roi/ROI_box.json")
 roi_field_1 = geopandas.read_file("geodata_roi/roi_field_1.json")
 roi_field_2 = geopandas.read_file("geodata_roi/roi_field_2.json")
