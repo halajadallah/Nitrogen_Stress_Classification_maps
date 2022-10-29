@@ -10,11 +10,9 @@ st.set_page_config(page_title='Shoreline Change Rate', layout = 'wide')
 st.title("Classification Maps")
 
 st.write("Streamlit cannot load the map for all of Natore district, therefore we selected a small region to give an appreciation of the classification on the map")
-st.write("Please note the spatial resolution of each pixel is 20 meters. This is the red edge resolution ")
+st.write("Please note the spatial resolution of each pixel is 20 meters. This is the resolution of the red edge band ")
 
-st.write("Please upload your field boundary as json or geojson file")
-st.markdown("Use this link as a guid https://geojson.io/#new&map=11.88/24.36593/89.00554")
-uploaded_file = st.file_uploader("Choose a file")
+
 
 def pickle_off(path):
     pickle_off = open(path, "rb")
@@ -29,8 +27,18 @@ centerx, centery, xmin, ymin, xmax, ymax = pickle_off("geodata_roi/center_bounds
 Natore = geopandas.read_file("geodata_roi/Natore_geo.geojson")
 roi = geopandas.read_file("geodata_roi/ROI_box.json")
 roi_field_1 = geopandas.read_file("geodata_roi/roi_field_1.json")
-roi_upload = geopandas.read_file(uploaded_file)
-
+try:
+    st.write("Please upload your field boundary as json or geojson file")
+    st.markdown(
+    '''
+    * Use the link to see the bounding ROI in geojson  https://geojson.io/#new&map=11.88/24.36593/89.00554
+    * copy the polygon in JSON panel to a json file and upload it
+    '''
+    )
+    uploaded_file = st.file_uploader("Choose a file")
+    roi_upload = geopandas.read_file(uploaded_file)
+except:
+    roi_upload = geopandas.read_file("geodata_roi/roi_field_2.json")
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
