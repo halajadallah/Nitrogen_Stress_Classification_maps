@@ -3,6 +3,7 @@ import pickle
 import folium
 import geopandas
 
+st.set_page_config(page_title='Shoreline Change Rate', layout = 'wide')
 
 #* Classification maps
 
@@ -11,7 +12,7 @@ st.title("Classification Maps")
 st.write("Streamlit cannot load the map for all of Natore district, therefore we selected a small region to give an appreciation of the classification on the map")
 st.write("Please note the spatial resolution of each pixel is 20 meters. This is the red edge resolution ")
 
-st.write("You May upload your field boundary as json or geojson file")
+st.write("Please upload your field boundary as json or geojson file")
 st.markdown("Use this link as a guid https://geojson.io/#new&map=11.88/24.36593/89.00554")
 uploaded_file = st.file_uploader("Choose a file")
 
@@ -28,7 +29,6 @@ centerx, centery, xmin, ymin, xmax, ymax = pickle_off("geodata_roi/center_bounds
 Natore = geopandas.read_file("geodata_roi/Natore_geo.geojson")
 roi = geopandas.read_file("geodata_roi/ROI_box.json")
 roi_field_1 = geopandas.read_file("geodata_roi/roi_field_1.json")
-roi_field_2 = geopandas.read_file("geodata_roi/roi_field_2.json")
 roi_upload = geopandas.read_file(uploaded_file)
 
 
@@ -47,7 +47,6 @@ st.write('Classes : Poor (-2 to -1) (red), Mild Stress (-1 to 0) (yellow), Norma
 folium.GeoJson(data=Natore["geometry"], style_function = lambda x: {'fillColor' : 'lemmongrass','color' : 'green'}, name = 'Natore').add_to(m)
 folium.GeoJson(data=roi["geometry"], style_function = lambda x: {'fillcolor':'red', 'color':'red'}, name='roi').add_to(m)
 folium.GeoJson(data=roi_field_1["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_field_1').add_to(m)
-folium.GeoJson(data=roi_field_2["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_field_2').add_to(m)
 folium.GeoJson(data=roi_upload["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_upload').add_to(m)
 
 
