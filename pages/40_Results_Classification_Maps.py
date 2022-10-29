@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import folium
+import geopandas
 
 
 #* Classification maps
@@ -10,6 +11,9 @@ st.title("Classification Maps")
 st.write("Streamlit cannot load the map for all of Natore district, therefore we selected a small region to give an appreciation of the classification on the map")
 st.write("Please note the spatial resolution of each pixel is 20 meters. This is the red edge resolution ")
 
+st.write("You May upload your field boundary as json or geojson file")
+uploaded_file = st.file_uploader("Choose a file")
+
 def pickle_off(path):
     pickle_off = open(path, "rb")
     array = pickle.load(pickle_off)
@@ -18,6 +22,14 @@ def pickle_off(path):
 boro_2018, boro_2019, boro_2020, boro_2021, boro_2022 = pickle_off("geodata_roi/boro_clre_arrays.pkl")
 aman_2018, aman_2019, aman_2020, aman_2021 = pickle_off("geodata_roi/aman_clre_arrays.pkl")
 centerx, centery, xmin, ymin, xmax, ymax = pickle_off("geodata_roi/center_bounds_list.pkl")
+
+
+Natore = geopandas.read_file("geodata_roi/Natore.geojson")
+roi = geopandas.read_file("geodata_roi/ROI_box.json")
+roi_field_1 = geopandas.read_file("geodata_roi/roi_field_1.json")
+roi_field_2 = geopandas.read_file("geodata_roi/roi_field_2.json")
+roi_upload = geopandas.read_file(uploaded_file)
+
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
@@ -29,6 +41,14 @@ raster_to_coloridx = {
 
 m = folium.Map(location=[centery, centerx], zoom_start=13 ,tiles='openstreetmap')#'Stamen Terrain')
 st.write('Classes : Poor (-2 to -1) (red), Mild Stress (-1 to 0) (yellow), Normal (0 to 1) (green), Good (1 to 2) (blue)')
+
+
+folium.GeoJson(data=Natore["geometry"], style_function = lambda x: {'fillColor' : 'lemmongrass','color' : 'green'}, name = 'Natore').add_to(m)
+folium.GeoJson(data=roi["geometry"], style_function = lambda x: {'fillcolor':'red', 'color':'red'}, name='roi').add_to(m)
+folium.GeoJson(data=roi_field_1["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_field_1').add_to(m)
+folium.GeoJson(data=roi_field_2["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_field_2').add_to(m)
+folium.GeoJson(data=roi_upload["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_upload').add_to(m)
+
 
 folium.raster_layers.ImageOverlay(
     name="boro 2018",
