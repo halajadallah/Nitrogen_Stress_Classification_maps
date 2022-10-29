@@ -12,6 +12,7 @@ st.write("Streamlit cannot load the map for all of Natore district, therefore we
 st.write("Please note the spatial resolution of each pixel is 20 meters. This is the red edge resolution ")
 
 st.write("You May upload your field boundary as json or geojson file")
+st.markdown("Use this link as a guid https://geojson.io/#new&map=11.88/24.36593/89.00554")
 uploaded_file = st.file_uploader("Choose a file")
 
 def pickle_off(path):
