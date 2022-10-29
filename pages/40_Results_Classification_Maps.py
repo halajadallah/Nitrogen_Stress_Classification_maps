@@ -45,9 +45,9 @@ st.write('Classes : Poor (-2 to -1) (red), Mild Stress (-1 to 0) (yellow), Norma
 
 
 folium.GeoJson(data=Natore["geometry"], style_function = lambda x: {'fillColor' : 'none','color' : 'green'}, name = 'Natore').add_to(m)
-folium.GeoJson(data=roi["geometry"], style_function = lambda x: {'fillcolor':'none', 'color':'red'}, name='roi').add_to(m)
-folium.GeoJson(data=roi_field_1["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_field_1').add_to(m)
-folium.GeoJson(data=roi_upload["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_upload').add_to(m)
+folium.GeoJson(data=roi["geometry"], style_function = lambda x: {'fillColor':'none', 'color':'red'}, name='roi').add_to(m)
+folium.GeoJson(data=roi_field_1["geometry"], style_function = lambda x: {'fillColor': 'none', 'color':'black'}, name='roi_field_1').add_to(m)
+folium.GeoJson(data=roi_upload["geometry"], style_function = lambda x: {'fillColor': 'none', 'color':'black'}, name='roi_upload').add_to(m)
 
 
 folium.raster_layers.ImageOverlay(
