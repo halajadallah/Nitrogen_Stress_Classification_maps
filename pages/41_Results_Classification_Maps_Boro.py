@@ -3,7 +3,7 @@ import pickle
 import folium
 import geopandas
 
-st.set_page_config(page_title='Classification Maps', layout = 'wide')
+st.set_page_config(page_title='Classification Maps Boro', layout = 'wide')
 
 #* Classification maps
 
@@ -11,8 +11,6 @@ st.title("Classification Maps")
 
 st.write("Streamlit cannot load the map for all of Natore district, therefore we selected a small region to give an appreciation of the classification on the map")
 st.write("Please note the spatial resolution of each pixel is 20 meters. This is the resolution of the red edge band ")
-
-
 
 def pickle_off(path):
     pickle_off = open(path, "rb")
@@ -26,19 +24,6 @@ centerx, centery, xmin, ymin, xmax, ymax = pickle_off("geodata_roi/center_bounds
 
 Natore = geopandas.read_file("geodata_roi/Natore_geo.geojson")
 roi = geopandas.read_file("geodata_roi/ROI_box.json")
-roi_field_1 = geopandas.read_file("geodata_roi/roi_field_1.json")
-try:
-    st.write("Please upload your field boundary as json or geojson file")
-    st.markdown(
-    '''
-    * Use the link to see the bounding ROI in geojson https://geojson.io/#map=11.88/24.36593/89.00554
-    * copy the polygon in JSON panel to a json file and upload it
-    '''
-    )
-    uploaded_file = st.file_uploader("Choose a file")
-    roi_upload = geopandas.read_file(uploaded_file)
-except:
-    roi_upload = geopandas.read_file("geodata_roi/roi_upload_2.json")
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
@@ -51,13 +36,12 @@ raster_to_coloridx = {
 m = folium.Map(location=[centery, centerx], zoom_start=13 ,tiles='openstreetmap')#'Stamen Terrain')
 st.write('Classes : Poor (-2 to -1) (red), Mild Stress (-1 to 0) (yellow), Normal (0 to 1) (green), Good (1 to 2) (blue)')
 
-
+#Natore vector
 folium.GeoJson(data=Natore["geometry"], style_function = lambda x: {'fillColor' : 'none','color' : 'green'}, name = 'Natore').add_to(m)
+#Subregion box vector
 folium.GeoJson(data=roi["geometry"], style_function = lambda x: {'fillColor':'none', 'color':'red'}, name='roi').add_to(m)
-folium.GeoJson(data=roi_field_1["geometry"], style_function = lambda x: {'fillColor': 'none', 'color':'black'}, name='roi_field_1').add_to(m)
-folium.GeoJson(data=roi_upload["geometry"], style_function = lambda x: {'fillColor': 'none', 'color':'black'}, name='roi_upload').add_to(m)
 
-
+#rasters
 folium.raster_layers.ImageOverlay(
     name="boro 2018",
     image=boro_2018,
@@ -113,57 +97,10 @@ folium.raster_layers.ImageOverlay(
     zindex=1,
     ).add_to(m)
 
-
-folium.raster_layers.ImageOverlay(
-    name="aman 2018",
-    image=aman_2018,
-    bounds=[[ymin, xmin], [ymax, xmax]],
-    opacity=0.7,
-    colormap=lambda x: raster_to_coloridx[x],
-    interactive=True,
-    cross_origin=False,
-    zindex=1,
-    ).add_to(m)
-    
-   
-folium.raster_layers.ImageOverlay(
-    name="aman 2019",
-    image=aman_2019,
-    bounds=[[ymin, xmin], [ymax, xmax]],
-    opacity=0.7,
-    colormap=lambda x: raster_to_coloridx[x],
-    interactive=True,
-    cross_origin=False,
-    zindex=1,
-    ).add_to(m)
-    
-folium.raster_layers.ImageOverlay(
-    name="aman 2020",
-    image=aman_2020,
-    bounds=[[ymin, xmin], [ymax, xmax]],
-    opacity=0.7,
-    colormap=lambda x: raster_to_coloridx[x],
-    interactive=True,
-    cross_origin=False,
-    zindex=1,
-    ).add_to(m)
-    
-folium.raster_layers.ImageOverlay(
-    name="aman 2021",
-    image=aman_2021,
-    bounds=[[ymin, xmin], [ymax, xmax]],
-    opacity=0.7,
-    colormap=lambda x: raster_to_coloridx[x],
-    interactive=True,
-    cross_origin=False,
-    zindex=1,
-    ).add_to(m)
-    
 # add pin to select/ unselect image        
 folium.LayerControl().add_to(m)
 
 m
-
 
 
 
