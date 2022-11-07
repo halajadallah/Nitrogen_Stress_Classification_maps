@@ -24,6 +24,20 @@ centerx, centery, xmin, ymin, xmax, ymax = pickle_off("geodata_roi/center_bounds
 
 Natore = geopandas.read_file("geodata_roi/Natore_geo.geojson")
 roi = geopandas.read_file("geodata_roi/ROI_box.json")
+roi_field_1 = geopandas.read_file("geodata_roi/roi_field_1.json")
+try:
+    st.write("Please upload your field boundary as json or geojson file")
+    st.markdown(
+    '''
+    * Use the link to see the bounding ROI in geojson https://geojson.io/#map=11.88/24.36593/89.00554
+    * copy the polygon in JSON panel to a json file and upload it
+    '''
+    )
+    uploaded_file = st.file_uploader("Choose a file")
+    roi_upload = geopandas.read_file(uploaded_file)
+except:
+    roi_upload = geopandas.read_file("geodata_roi/roi_upload_2.json")
+
 
 ## colors : R,G,B,alpha
 raster_to_coloridx = {
@@ -40,6 +54,11 @@ st.write('Classes : Poor (-2 to -1) (red), Mild Stress (-1 to 0) (yellow), Norma
 folium.GeoJson(data=Natore["geometry"], style_function = lambda x: {'fillColor' : 'none','color' : 'green'}, name = 'Natore').add_to(m)
 #Subregion box vector
 folium.GeoJson(data=roi["geometry"], style_function = lambda x: {'fillColor':'none', 'color':'red'}, name='roi').add_to(m)
+# roi sample field
+folium.GeoJson(data=roi_field_1["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_field_1').add_to(m)
+# roi upload field
+folium.GeoJson(data=roi_upload["geometry"], style_function = lambda x: {'fillcolor': 'none', 'color':'black'}, name='roi_upload').add_to(m)
+
 
 folium.raster_layers.ImageOverlay(
     name="aman 2018",
